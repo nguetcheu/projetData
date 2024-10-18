@@ -1,0 +1,8 @@
+# Environnements virtuels
+venv/
+__pycache__/
+*.py[cod]
+
+# Fichiers sensibles
+.env
+*.env

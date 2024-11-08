@@ -14,6 +14,8 @@ df_static = spark.read.csv(base_path + csv_file_path, header=True, inferSchema=T
 df_static.printSchema()
 df_static.show(10)
 
+#formatage de la date en format (YYYY-MM-DD)
 
-# Transfert des données vers hdfs
+
+# Transfert des données vers hdfs et sauvegarde en parquet
 # df_static.write.mode("overwrite").save("hdfs://localhost:9000/user/hadoop/data/climate_data_kaggle")

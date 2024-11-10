@@ -6,3 +6,4 @@ __pycache__/
 # Fichiers sensibles
 .env
 *.env
+.env.*

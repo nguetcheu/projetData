@@ -16,4 +16,4 @@ df_static.show(10)
 
 
 # Transfert des données vers hdfs
-# df_static.write.mode("overwrite").save("hdfs://localhost:9000/user/hadoop/data/climate_data_kaggle")
+df_static.write.mode("overwrite").save("hdfs://localhost:9000/user/hadoop/data/climate_data_kaggle")

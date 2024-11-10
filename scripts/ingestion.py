@@ -7,7 +7,7 @@ spark = SparkSession.builder.appName("ClimateData").getOrCreate()
 base_path = "/home/nguetcheu"
 csv_file_path = "/Documents/projetData/data/GlobalWeatherRepository.csv"
 
-# Charger les données CSV
+# Charger les données CSV ,
 df_static = spark.read.csv(base_path + csv_file_path, header=True, inferSchema=True)
 
 # Afficher un aperçu des données

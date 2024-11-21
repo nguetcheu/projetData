@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import to_timestamp, date_format
-from pyspark.sql.functions import col, mean, when, count
+from pyspark.sql.functions import col, trim, lower, when, count
 
 
 # Créer une session Spark
@@ -52,8 +52,27 @@ else:
 
 print("\nTraitement des valeurs manquantes terminé")
 
-# 
+# NORMALISATION DES TEXTES
 
-#df_static.show(10)
+#identification des colonnes de type texte
+text_columns = [field.name for field in df_static.schema.fields if field.dataType.simpleString() == "string"]
+
+#Application de la normalisation de texte
+for columns in text_columns:
+    df_static = df_static.withColumn(columns, trim(lower(col(columns))))
+
+print("Aperçu des données après normalisation des textes :")
+df_static.show(10,truncate=False)
+
+# Test et validation
+validation = df_static.select(
+    *[
+        when(trim(lower(col(c))) != col(c), f"{c} non normalisé").alias(c)
+        for c in text_columns
+    ]
+)
+validation.show(truncate=False)
+
+print("Normalisation des textes terminée.")
 # Transfert des données vers hdfs
 #df_static.write.mode("overwrite").save("hdfs://localhost:9000/user/hadoop/data/climate_data_kaggle")

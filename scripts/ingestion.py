@@ -9,11 +9,11 @@ spark = SparkSession.builder.appName("ClimateData").getOrCreate()
 # Définir le chemin de base et le chemin du fichier CSV dans des variables
 base_path = "/home/evrad7"
 csv_file_path = "/Documents/projetData/data/GlobalWeatherRepository.csv"
-save_path = "/home/evrad7/Documents/projetData/data/"
+save_path = "/home/evrad7/Documents/projetData/data/NewGlobalWeatherRepository.csv"
 
 # Charger les données CSV ,
 df_static = spark.read.csv(base_path + csv_file_path, header=True, inferSchema=True)
-
+df_static = df_static.repartition(1)
 # Afficher un aperçu des données
 #df_static.printSchema()
 
@@ -40,7 +40,7 @@ df_normalized = df_filled.select(
 )
 
 # Enregistrer les modifications dans le même fichier CSV
-#df_normalized.write.mode("overwrite").csv(save_path,header=True)
+df_normalized.write.mode("overwrite").csv(save_path,header=True)
 
 # Afficher le résultat
 df_normalized.show()
